@@ -1,0 +1,147 @@
+{% extends 'fullsite/base.html' %}
+
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+<div class="col-md-9 ">
+    <div class="border p-3">
+        <div class='row' style="justify-content: space-around;">
+            <div class="card_poster col-md-3" style="cursor: pointer;">
+                <style>
+                    .card_poster:hover {
+                        transition: transform 10s;
+                        border-radius: 12px;
+                    }
+
+                    .card_poster:hover {
+                        background-color: #212529;
+                        color: white;
+                        transition: transform 450ms;
+                    }
+                </style>
+                <div class=" p-3 shadow">
+                    <h6>Company Name</h6>
+                    <small>{{ companyName }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster ">
+                <div class=" p-3 shadow">
+                    <h6>Company Tiker</h6>
+                    <small>{{ Symbol }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster ">
+                <div class=" p-3 shadow">
+                    <h6>Currency </h6>
+                    <small>{{ Currency }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster ">
+                <div class=" p-3 shadow">
+                    <h6>Sector </h6>
+                    <small>{{ Sector }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster ">
+                <div class=" p-3 shadow">
+                    <h6>Country</h6>
+                    <small>{{ Country }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster">
+                <div class=" p-3 shadow">
+                    <h6>Total Assets(<small>{{ year }}</small>) </h6>
+                    <small>{{ totalAssets }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster">
+                <div class=" p-3 shadow">
+                    <h6>Inventory(<small>{{ year}}</small>) </h6>
+                    <small>{{ inventory }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster">
+                <div class=" p-3 shadow">
+                    <h6>Total Shareholder Equity(<small>{{ year}}</small>)  </h6>
+                    <small>{{ totalShareholderEquity }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster">
+                <div class=" p-3 shadow">
+                    <h6>TotalRevenue(<small>{{ fiscalDateEnding}}</small>)  </h6>
+                    <small>{{ totalRevenue }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster">
+                <div class=" p-3 shadow">
+                    <h6>Gross Profit(<small>{{ fiscalDateEnding}}</small>)  </h6>
+                    <small>{{ grossProfit }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster">
+                <div class=" p-3 shadow">
+                    <h6>netIncome(<small>{{ fiscalDateEnding}}</small>)  </h6>
+                    <small>{{ netIncome }}</small>
+                </div>
+            </div>
+            <div class="col-md-3 card_poster">
+                <div class=" p-3 shadow">
+                    <h6>Operating Cash flow </h6>
+                    <small>{{ cashFlow }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive" style="height:500px;overflow-y:scroll">
+        <div class="border p-3">
+            <h3><strong><small>({{Symbol}})</small> </strong>💹:Graph Analysis({{ status }})</h3>
+            <hr>
+
+            <h4 style="text-align:center;margin:20px">{{information}}</h4>
+            <canvas id="myChart" width="600" height="200"></canvas>
+
+            <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: '{% if graph == NULL %}line{% else %}{{ graph }}{% endif %}',
+                    data: {
+                        labels: [{% for data in Date %} '{{ data }}' ,{% endfor %}],
+                datasets: [{
+                    label: '# of Price',
+                    data: [{% for d in open %}{{ d }}, {% endfor %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                            borderWidth: 1
+                        }]
+                    },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+                });
+            </script>
+        </div>
+    </div>
+</div>
+{% endblock%}

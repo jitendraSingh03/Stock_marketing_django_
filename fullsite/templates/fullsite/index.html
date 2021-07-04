@@ -1,0 +1,137 @@
+{% extends 'fullsite/base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+<style>
+    .custom {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .custom-search>ul>li {
+        font-size: 18px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    .custom-search>ul>li:hover {
+        color: rgb(228, 61, 10);
+    }
+</style>
+<div class="row ">
+    <div class="col-md-3 " style="background-color: #212529;color: #fff;">
+        <div class=" p-3 shadow">
+            <h2><strong>Custom search</strong></h2>
+            <hr>
+            <div class='custom'>
+                <form action="{% url 'customSearch' %}" style="display: flex;flex-direction: column;align-items: stretch;">
+                    <select class="btn btn-secondary btn-sm dropdown-toggle" name='graph'>
+                        <option value='line'>Line</option>
+                        <option value='bar'>bar</option>
+                        <option value='Doughnut'>Doughnut & pie Chart</option>
+
+                        <option value='polerarea'>Polar area chart</option>
+                    </select>
+                    <select class="btn btn-secondary btn-sm dropdown-toggle mt-2" name='status'>
+                        <option value='0'>Open</option>
+                        <option value='1'>Hight</option>
+                        <option value='2'>Low</option>
+                        <option value='3'>close</option>
+                        <option value='4'>Adjusted close</option>
+                        <option value='5'>volume</option>
+                        <option value='6'>dividend amount</option>
+                    </select>
+                    <input placeholder="Company tiker" name='tiker' style="margin-top: 12px;" Required  >
+                    <div class="" style="display: flex;justify-content: space-between;">
+                        <div>
+                            <label style="margin-top: 12px;">From</label>
+                            <input type="date" placeholder="From" name='from'style="width: 150px;text-align: center;border-radius: 6px;">
+                        </div>
+                        <div class="">
+                            <label style="margin-top: 12px;">TO</label>
+                            <input type="date" placeholder="From" name='to' style="width: 150px;text-align: center;border-radius: 6px;">
+                        </div>
+                    </div>
+                    <button  type='submit' style='margin: 20px;padding: 5px;'><strong>Add</strong></button>
+                </form>
+            </div>
+        </div>
+        <div class="shadow p-3">
+           
+            <h4>Analysis Table</h4>
+            <hr>
+            <div class='custom-search'>
+                <ul style="list-style-image:url('http://pngimg.com/image/27355');">
+                    <li><a href="{% url 'StokTimeSeries' %}">Intraday</a></li>
+                    <li><a>Intraday (Extended History)</a></li>
+                    <li><a>Dialy</a></li>
+                    <li><a>Dialy Adjusted</a></li>
+                    <li><a>Weekly</a></li>
+                    <li><a>Monthly</a></li>
+                    <li><a>Monthly Adjusted</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="border p-3">
+            <h3><strong>Welcome </strong>💹:Graph Analysis(open-apple)</h3>
+            <hr>
+            <h4 style="text-align:center;margin-top:40px" >Please first select your company tiker and graph type</h4>
+            <h5 style="text-align:center;margin:20px"> from custom search</h5>
+            <h1 style="text-align:center;margin:20px">↩️</h1>
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-md-3" style="background-color: #212529;color: #fff;">
+        
+    </div>
+    <div class="col-md-9">
+        <div class="border">
+            <h3>Graph Represent(Close-apple)</h3>
+            <hr>
+            <canvas id="myChart2" width="600" height="200"></canvas>
+            <script>
+                var ctx = document.getElementById('myChart2').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [{% for data in Date %} '{{ data }}' ,{% endfor %}],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [{% for d in close %}{{ d }}, {% endfor %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                            borderWidth: 1
+                        }]
+                    },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+                });
+            </script>
+        </div>
+    </div>
+</div> -->
+{% endblock%}

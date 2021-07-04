@@ -1,0 +1,296 @@
+<style>
+    .custom {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .custom-search>ul>li {
+        font-size: 18px;
+        margin-top: 0.6px;
+        cursor: pointer;
+    }
+
+    .custom-search>ul>li:hover {
+        color: rgb(228, 61, 10);
+    }
+
+    .custom>form>input {
+        width: 80%;
+        margin: auto;
+        padding: 3px 20px;
+        border-radius: 7px;
+
+    }
+
+    .custom>form>button {
+        width: 50%;
+        margin: auto;
+        padding: 5px 20px;
+        border-radius: 7px;
+        margin-top: 12px;
+    }
+
+    .custom>form>button:hover {
+        background-color: forestgreen;
+        color: #fff;
+        padding: 5px 20px;
+    }
+</style>
+<div class="col-md-3 "
+    style="background-color: #212529;color: #fff;height: 93vh;overflow: hidden;display: flex;flex-direction: column;justify-content: space-between">
+    <div class=" p-3 shadow">
+        <h3 style="text-align: center;"><strong>Custom analysis</strong></h3>
+        <hr>
+        <div class='custom'>
+            <form action="{% url 'customSearch' %}" style="display: flex;flex-direction: column;align-items: stretch;">
+                <select class="btn btn-secondary btn-sm dropdown-toggle" name='graph' >
+                    <option value='line'>Line</option>
+                    <option value='bar'>bar</option>
+                    <option value='doughnut'>Doughnut & pie Chart</option>
+
+                    <option value='polarArea'>Polar area chart</option>
+                </select>
+                <select class="btn btn-secondary btn-sm dropdown-toggle mt-2" default="{{ status }}" name='status'>
+                    <option value='0'>Open</option>
+                    <option value='1'>Hight</option>
+                    <option value='2'>Low</option>
+                    <option value='3'>close</option>
+                    <option value='4'>Adjusted close</option>
+                    <option value='5'>volume</option>
+                    <option value='6'>dividend amount</option>
+                </select>
+                <input placeholder="Company tiker" name='tiker' value="{{ Symbol }}" style="margin-top: 12px;" Required>
+                <button type='submit' style='margin: 20px;padding: 5px;'><strong>Add</strong></button>
+            </form>
+        </div>
+    </div>
+    <div class="shadow p-3">
+
+        <h4>Setting</h4>
+        <hr>
+        <style>
+            .custom-search>ul>li>a {
+                text-decoration: none;
+                color: #fff;
+            }
+            
+        </style>
+
+        <div class='custom-search'>
+            <ul style="list-style-image:url('http://pngimg.com/image/27355');">
+
+                <li>
+                    <style>
+                        .dropend >.btn{
+                            padding: 0 .75rem;
+                        }
+                        .dropup>.btn{
+                            padding: 0 .75rem;
+                        }
+                        .dropdown>.btn{
+                            padding: 0 .75rem;
+                        }
+                    </style>
+                    <div class="btn-group dropend">
+                        <button type="button" style="background-color: #6c757d00;border-color:#6c757d00;"
+                            class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Intraday
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <form action="{% url 'intraday' %}" style="display: flex;flex-direction: column;">
+                                    <input type="number" name='size' placeholder="Last 5 hours"
+                                        style="width: 150px;text-align: center;border-radius: 6px;" />
+                                    <input type='text' name='graph' value='{{ graph }}' hidden>
+                                    <input type='text' name='tiker' value="{{ Symbol }}" hidden>
+                                    <input type="text" name='status' value="{{ status }}" hidden>
+                                    <button class='btn btn-sm btn-outline-warning' type="submit">ADD</button>
+                                </form>
+                            </li>
+                            <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-group dropdown">
+                        <button type="button" style="background-color: #6c757d00;border-color:#6c757d00;"
+                            class="btn btn-secondary dropdown-toggle disabled" data-bs-toggle="dropdown" aria-expanded="false">
+                            Intraday (Extended History)
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <form style="display: flex;
+                                flex-direction: column;">
+                                    <input type="number" name='size' placeholder="Enter number of days"
+                                        style="width: 150px;text-align: center;border-radius: 6px;" />
+                                    <button class='btn btn-sm btn-outline-warning' type="submit">ADD</button>
+                                </form>
+                            </li>
+                            <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-group dropend">
+                        <button type="button" style="background-color: #6c757d00;border-color:#6c757d00;"
+                            class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dialy
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <form action='{% url "daily" %}' style="display: flex;
+                                flex-direction: column;">
+                                    <input type="number" name='size' placeholder="No. of days"
+                                        style="width: 150px;text-align: center;border-radius: 6px;" />
+                                        <input type='text' name='graph' value='{{ graph }}' hidden>
+                                        <input type='text' name='tiker' value="{{ Symbol }}" hidden>
+                                        <input type="text" name='status' value="{{ status }}" hidden>
+                                    <button class='btn btn-sm btn-outline-warning' type="submit">ADD</button>
+                                </form>
+                            </li>
+                            <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-group dropend">
+                        <button type="button" style="background-color: #6c757d00;border-color:#6c757d00;"
+                            class="btn btn-secondary dropdown-toggle disabled" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dialy Adjusted
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <form style="display: flex;
+                                flex-direction: column;">
+                                    <input type="number" name='size' placeholder="No. of days"
+                                        style="width: 150px;text-align: center;border-radius: 6px;" />
+                                    <button class='btn btn-sm btn-outline-warning' type="submit">ADD</button>
+                                </form>
+                            </li>
+                            <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-group dropend">
+                        <button type="button" style="background-color: #6c757d00;border-color:#6c757d00;"
+                            class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Weekly
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <form action="{% url 'weekly' %}" style="display: flex;
+                                flex-direction: column;">
+                                    <input type="number" name='size' placeholder="No. of weeks"
+                                        style="width: 150px;text-align: center;border-radius: 6px;" />
+                                        <input type='text' name='graph' value='{{ graph }}' hidden>
+                                        <input type='text' name='tiker' value="{{ Symbol }}" hidden>
+                                        <input type="text" name='status' value="{{ status }}" hidden>
+                                    <button class='btn btn-sm btn-outline-warning' type="submit">ADD</button>
+                                </form>
+                            </li>
+                            <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-group dropend">
+                        <button type="button" style="background-color: #6c757d00;border-color:#6c757d00;"
+                            class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Monthly
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <form action='{% url "monthly" %}' style="display: flex;
+                                flex-direction: column;">
+                                <div>
+                                    <label style="margin-top: 12px;">From</label>
+                                    <input type="date" placeholder="From" name='from'
+                                        style="width: 150px;text-align: center;border-radius: 6px;">
+                                </div>
+                                <div class="">
+                                    <label style="margin-top: 12px;">TO</label>
+                                    <input type="date" placeholder="From" name='to'
+                                        style="width: 150px;text-align: center;border-radius: 6px;">
+                                </div>
+                                        <input type='text' name='graph' value='{{ graph }}' hidden>
+                                        <input type='text' name='tiker' value="{{ Symbol }}" hidden>
+                                        <input type="text" name='status' value="{{ status }}" hidden>
+                                    <button class='btn btn-sm btn-outline-warning' type="submit">ADD</button>
+                                </form>
+                            </li>
+                            <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn-group dropup">
+                        <button type="button" style="background-color: #6c757d00;border-color:#6c757d00;"
+                            class="btn btn-secondary dropdown-toggle disabled" data-bs-toggle="dropdown" aria-expanded="false">
+                            Monthly Adjusted
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <form style="display: flex;
+                                flex-direction: column;">
+                                    <input type="number" name='size' placeholder="Enter number of days"
+                                        style="width: 150px;text-align: center;border-radius: 6px;" />
+                                    <button class='btn btn-sm btn-outline-warning' type="submit">ADD</button>
+                                </form>
+                            </li>
+                            <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 
+<div class="modal fade" id="SignUp" tabindex="-1" aria-labelledby="SignUpLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="SignUpLabel">Add new user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="" method="POST">{% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" name='fname' placeholder="First name" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" name='lname' placeholder="Last name" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col">
+                        <input type="emial" class="form-control" name='email' placeholder="Email" required>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <input type="password" class="form-control" name='pass1' placeholder="Password" required>
+                        </div>
+                        <div class="col">
+                            <input type="password2" class="form-control" name='pass2' placeholder="Password2" required>
+                        </div>
+                    </div>
+                    <br>
+                    <button class="btn btn-secondary" type='submit'>add User</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div> -->
